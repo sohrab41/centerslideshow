@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
+        <!--script type='text/javascript' src='js/libs/jquery-1.11.0.min.js'></script>
+        <script type='text/javascript' src='js/libs/jquery.easing.1.3.js'></script--> 
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <script src="js/libs/jquery-1.10.2.js"></script>
+        <script src="js/libs/jquery-ui_1.10.4.js"></script><meta charset=utf-8 />
+        <title>JS Bin</title>
+        <!-- ----------------- style --------------------------- -->
+        <style>
+            #colorPage1Class{
+                background-color:'#ff0000';
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+
+                /* Preserve aspet ratio */
+                min-width: 100%;
+                min-height: 100%;
+            }         
+            .fullpagebackground{
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                border: 0px solid;
+                height: 800px; width: 1280px; overflow: hidden; 
+                /* Preserve aspet ratio */
+                /* min-width: 1100px;/*100%;*/
+                /* min-height: 700px;
+                 max-height: 1100px;
+                 max-width: 700px;
+                */
+            }           
+            /*
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;*/
+
+
+            .slideshow{ position: relative; }
+            #slide1, #slide2, #slide3{ position: absolute; }
+            #photoShow div.previous {
+                z-index: 1;
+            }
+            #photoShow div.current {
+                z-index: 2;
+            }
+
+
+            p.detail { color:blue;font-weight:bold;font-family:Calibri;font-size: 2.0em; }
+            span.name { color:blue;font-weight:bold;font-family:Tahoma;font-size: 0.7em; }
+
+            p.logdetail { color:blue;font-weight:bold;font-family:Calibri;font-size: 0.9em; }
+            /*
+                        p.yellowdetail { color:blue;font-weight:bold;font-family:Calibri;font-size: 300%; }
+                        span.yellowname { color:blue;font-weight:bold;font-family:Tahoma;font-size: 0.3em; }
+            */
+            div.yellowdetail { color:blue;font-weight:bold;font-family:Calibri;font-size: 200px;  }
+            span.yellowname { color:blue;font-weight:bold;font-family:Tahoma;font-size: 30px; }
+
+            div.yellowdetail2 { color:blue;font-weight:bold;font-family:Calibri;font-size: 60px;  }
+            div.yellowdetail3 { color:blue;font-weight:bold;font-family:Calibri;font-size: 60px;  }
+
+            span.reddetail { color:blue;font-weight:bold;font-family:Tahoma;font-size: 100px; }
+            span.redname { color:blue;font-weight:bold;font-family:Tahoma;font-size: 100px; }
+
+            div.bluedetail { color:white;font-weight:bold;font-family:Tahoma;font-size: 100px; }
+            span.bluename { color:white;font-weight:bold;font-family:Tahoma;font-size: 0.7em; }
+
+
+            /*
+            p.detail { color:blue;font-weight:bold;font-family:Calibri;font-size:20 }
+            span.name { color:blue;font-weight:bold;font-family:Tahoma;font-size:40 }'fontSize': '20px', 'font-weight': 'bold'*/
+
+            ul 
+            {
+                list-style:none;
+            }
+
+
+        </style>
+        <!-- ----------------- script --------------------------- -->
+        <script>//  jQuery(document).ready(function($) {
+            //************************************
+            //****   Ready  --  Ready  --  Ready
+            //****
+            //************************************
+            jQuery(function() {
+                var deleteArray = [];
+                console.log('window.width:  ' + $(window).width());     //left
+                console.log('window.Height:  ' + $(window).height());  //top
+                //***************************
+                //**** function loadYellowText2(id)
+                //****
+                //***************************
+                function loadYellowText2(id) {
+                    var yellowDivText = 'Er på centertorvet!';
+                    $("#" + id).append('<div id="yellowdiv2" style=" display:none;" class="yellowdetail2">' + yellowDivText + '</div>');
+                    $('#yellowdiv2').css({'opacity': '0.85', 'background-color': 'yellow', 'left': '-100px', 'text-align': 'left', 'top': '350px', 'width': '1000px', 'position': 'relative', 'display': 'block', 'z-index': '3'});
+                    $("#yellowdiv2").animate({
+                        opacity: 0.8,
+                        left: "0px"
+                    },
+                    {
+                        duration: 800,
+                        complete: function() {
+                            //console.log("finished  #yellowdiv2");
+                            deleteArray.push("#yellowdiv2");
+                            loadYellowText3(id);
+                        }
+                    });
+                }
+                //***************************
+                //**** function loadYellowText3(id)
+                //**** 135px/30px
+                //***************************
+                function loadYellowText3(id) {
+                    var yellowDivText = 'Med en masse gode tilbud';
+                    $("#" + id).append('<div id="yellowdiv3" style=" display:none;" class="yellowdetail3">' + yellowDivText + '</div>');
+                    $('#yellowdiv3').css({'opacity': '0.85', 'background-color': 'yellow', 'color': 'blue', 'left': '-100px', 'text-align': 'left', 'top': '450px', 'width': '1000px', 'position': 'relative', 'display': 'block', 'z-index': '3'});
+                    // $('#yellowdiv3').css({'font-weight': 'bold 135px/30px','font-size': '200%'});
+                    $("#yellowdiv3").animate({
+                        left: "0px"
+                    },
+                    {
+                        duration: 800,
+                        complete: function() {
+                            //console.log("finished  #yellowdiv3");
+                            deleteArray.push("#yellowdiv3");
+                            loadShppingCart(id);
+                        }
+                    });
+                }
+                //***************************
+                //**** function loadShppingCart
+                //****
+                //***************************
+                function loadShppingCart(id) {
+                    $("#" + id).append('<div><img id="yellowcartdiv"  src="images/shopping_cart.png" alt="" width="400" height="423" style="display: none;  position: relative; right: 0px;"></div>');
+                    $("#yellowcartdiv").css({'top': '0px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+                    $("#yellowcartdiv").animate({
+                        opacity: 1, //0.25,
+                        right: "+=90"//,
+                    },
+                    {
+                        duration: 500,
+                        complete: function() {
+                            //console.log("finished yellowcartdiv shopping_cart");
+                            deleteArray.push("#yellowcartdiv");
+                            //$(this).parent().remove();
+                        }
+                    });
+                }
+
+
+                //***************************
+                //**** function loadWhiteText2(id)
+                //****
+                //***************************
+                function loadWhite1Text1(id) {
+                    $("#" + id).append('<p id="white1textdiv"  class="reddetail" style="display:inline "  >HUSK SØNDAGSÅBEN</p>');
+                    $('#white1textdiv').append('<div style="background-color:red     height:140;     font-size:52px;">Søndag d. 4 maj</div>');
+                    $('#white1textdiv').append('<div style="background-color:yellow  height:140px;     font-size:52px;">Fra kl. 10-16</div>');
+                    $('#white1textdiv').append('<BR><p style="background-color:red height:140px;      font-size:22px;"> Føtext har åbent fra kl: 8-21</p>');
+                    $('#white1textdiv').after('</div>');
+                    //$('#white1textdiv').hide();
+
+                    $('#white1textdiv').css({'color': '#00994C', 'font-weight': 'bold', 'opacity': '0.85', 'background-color': 'white', 'left': '399px', 'text-align': 'center', 'top': '+200px', 'width': '500px', 'z-index': '3'});
+                    $("#white1textdiv").animate({
+                        width: "80%", //"70%",
+                        //  height: "500px", //"70%",
+                        opacity: 1.0,
+                        marginLeft: "0.7in",
+                        fontSize: "5em",
+                        borderWidth: "100px"
+                    },
+                    {
+                        duration: 1500,
+                        complete: function() {
+                            //console.log("finished  #white1textdiv");
+                            deleteArray.push("#white1textdiv");
+
+                        }
+                    });
+                }
+                //***************************
+                //**** function loadWhite1Figur(id)
+                //****
+                //***************************
+                function loadWhite1Figur(id) {
+                    $("#" + id).append('<div><img id="whiteroses1"  src="images/white_roses_PNG2790.png" alt="" width="300" height="350" style="display: none;  position: relative; left: 10px;">\n\
+                                            <img id="whiteroses2"  src="images/white_roses_PNG2790.png" alt="" width="300" height="350" style="display: none;  position: relative; left: 350px;">\n\
+                                            <img id="whiteroses3"  src="images/white_roses_PNG2790.png" alt="" width="300" height="350" style="display: none;  position: relative; left: 650px;">\n\
+                                            <img id="whiteroses4"  src="images/white_roses_PNG2790.png" alt="" width="300" height="350" style="display: none;  position: relative; left: 950px;">\n\
+                                      </div>');
+                    $("div #whiteroses1").css({'top': '500px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+                    $("div #whiteroses2").css({'top': '500px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+                    $("div #whiteroses3").css({'top': '500px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+                    $("div #whiteroses4").css({'top': '500px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+                    // $("#whiteroses1").css({'top': '0px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+                    $("#whiteroses1").animate({
+                        opacity: 1, //0.25,
+                        right: "-=90"//,
+                    },
+                    {
+                        duration: 500,
+                        complete: function() {
+                            //console.log("finished whiteroses1");
+                            deleteArray.push("#whiteroses1");
+                            //$(this).parent().remove();
+                        }
+                    });
+                    $("#whiteroses2").animate({
+                        opacity: 1, //0.25,
+                        right: "-=90"//,
+                    },
+                    {
+                        duration: 500,
+                        complete: function() {
+                            //console.log("finished whiteroses2");
+                            deleteArray.push("#whiteroses2");
+                            //$(this).parent().remove();
+                        }
+                    });
+                    $("#whiteroses3").animate({
+                        opacity: 1, //0.25,
+                        right: "-=90"//,
+                    },
+                    {
+                        duration: 500,
+                        complete: function() {
+                            //console.log("finished whiteroses3");
+                            deleteArray.push("#whiteroses3");
+                            //$(this).parent().remove();
+                        }
+                    });
+                    $("#whiteroses4").animate({
+                        opacity: 1, //0.25,
+                        right: "-=90"//,
+                    },
+                    {
+                        duration: 500,
+                        complete: function() {
+                            //console.log("finished whiteroses4");
+                            deleteArray.push("#whiteroses4");
+                            //$(this).parent().remove();
+                        }
+                    });
+                }
+
+                //***************************
+                //**** function loadWhiteFigur(id)
+                //****
+                //***************************
+                function loadWhiteFigur(id) {
+                    $("#" + id).append('<div><img id="book"  src="images/tst/hot_model_girl.png" alt="" width="300" height="523" style="display: none;  position: relative; left: -90px;"></div>');
+                    $("div #book").css({'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+
+                    $("div #book").animate({
+                        opacity: 1, //0.25,
+                        left: "+=90"//,
+                    },
+                    {
+                        duration: 500,
+                        complete: function() {
+                            //console.log("finished hot_model_girl");
+                            deleteArray.push("#book");
+                            //$(this).parent().remove();
+                        }
+                    });
+
+                }
+
+                //***************************
+                //**** function loadWhiteText2(id)
+                //****
+                //***************************
+                function loadWhiteText1(id) {
+                    var blueDivText = 'NYHED!';
+                    $("#" + id).append('<div id="div3" style=" display:none;">' + blueDivText + '</div>');
+                    $('#div3').css({'fontSize': '20px', 'font-weight': 'bold', 'opacity': '0.85', 'background-color': 'white', 'left': '399px', 'text-align': 'center', 'top': '+100px', 'width': '500px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'blue'});
+                    $("#div3").animate({
+                        width: "500px", //"70%",
+                        opacity: 0.8,
+                        marginLeft: "0.6in",
+                        fontSize: "3em",
+                        borderWidth: "10px"
+                    },
+                    {
+                        duration: 1500,
+                        complete: function() {
+                            //console.log("finished  #div3");
+                            deleteArray.push("#div3");
+                            loadWhiteText2(id);
+                        }
+                    });
+                }
+                //***************************
+                //**** function loadWhiteText2(id)
+                //****
+                //***************************
+                function loadWhiteText2(id) {
+                    // alert('oadWhiteText2  id:'+id);
+                    var whiteDivText = 'GRATIS WIFI';
+                    var whiteDivUnderText = 'I hele arealet';
+                    $("#" + id).append('<p id="div4" style=" display:none;" class="detail">'
+                            + whiteDivText + '<br> <span class="name" >'
+                            + whiteDivUnderText + '</span> </p>');
+                    $('#div4').css({'opacity': '0.85', 'background-color': 'white', 'left': '399px', 'text-align': 'center', 'top': '150px', 'width': '500px', 'position': 'relative', 'display': 'block', 'z-index': '3'});
+                    $("#div4").animate({
+                        width: "500px", //"70%",
+                        opacity: 0.8,
+                        marginLeft: "0.6in"
+                                /* fontSize: "3em",
+                                 borderWidth: "10px"*/
+                    },
+                    {
+                        duration: 1500,
+                        complete: function() {
+                            //console.log("finished  #div4");
+                            deleteArray.push("#div4");
+                            loadWhiteText3(id);
+                        }
+                    });
+                }
+
+                //***************************
+                //**** function loadWhiteText3(id)
+                //****
+                //***************************
+                function loadWhiteText3(id) {
+                    var blueDivText1 = 'Log på "freelink center" ';
+                    $("#" + id).append('<p id="div5" style=" display:none;" class="detail">' + blueDivText1 + '</p>');
+                    $('#div5').css({'opacity': '0.85', 'background-color': 'white', 'left': '399px', 'text-align': 'center', 'top': '250px', 'width': '500px', 'position': 'relative', 'display': 'block', 'z-index': '3'});
+                    $("#div5").animate({
+                        width: "500px", //"70%",
+                        opacity: 0.8,
+                        marginLeft: "0.6in"
+                                /* fontSize: "3em",
+                                 borderWidth: "10px"*/
+                    },
+                    {
+                        duration: 1500,
+                        complete: function() {
+                            //console.log("finished  #div5");
+                            deleteArray.push("#div5");
+                        }
+                    });
+                }
+
+                //console.log("---------------------------jQuery ---------------------------");
+                /*** *******************************************************************
+                 ***  Find all Div Inside Body
+                 ***  Each -- Each -- Each -- Each
+                 *** 
+                 *** *************************************************************** ***/
+                $('.slideshow > div').each(function() {
+                    // If data source er defind
+                    if (typeof $(this).attr('data-src') != 'undefined') {
+                        var id = $(this).attr('id');
+                        var data_src = $(this).attr('data-src');
+                        console.log('data-src  ===========id : ' + id + '=============>   :   ' + $(this).attr('data-src'));
+
+                        /*if (data_src.indexOf("dots") >= 0) {
+                         var imageUrl = 'url(' + data_src + ') repeat';
+                         alert('imageUrl:' + imageUrl);
+                         $("#" + id).css({'background-image': imageUrl});
+                         }*/
+                        //console.log('data-src  ========================>   :   ' + data_src);
+                        //var img = $(' <img src="' + data_src + '" class="fullpagebackground"  >'); //Equivalent: $(document.createElement('img'))
+                        //img.appendTo("#" + id).children("img").remove();
+                        //img.appendTo("#" + id);
+                        $("#" + id).append(' <img src="' + data_src + '" class="fullpagebackground"  >');
+                        $("#" + id).css({'z-index': '3'});
+                        // console.log("  src: " + $(this).attr('data-src') + 'added to id: ' + $(this).attr('id'));
+                    }
+                    else {
+                        var id = $(this).attr('id');
+                        //console.log("this is :1111: " + $(this).attr('id') + '  index:  ' + id.indexOf("backcolor"));
+                        //console.log("this is :1111: " + $(this).attr('id'));
+                        var color = id.substr(id.indexOf("_") + 1, id.length)
+                        //alert('color:'+color);
+                        $(this).css('background', color);//'#EE178C'
+                        //console.log("this is :      background: " + $(this).css('backgroundColor'));
+                        $("#" + id).css({'min-width': '100%'});// Preserve aspet ratio 
+                        $("#" + id).css({'min-height': '100%'});// Preserve aspet ratio 
+                        $("#" + id).css({'position': 'fixed'});
+                        //$("#" + id).css({'position': 'relative'});
+                        $("#" + id).css({'top': '0px'});
+                        $("#" + id).css({'left': '0px'});
+                        //console.log("this is :background-color: " + $(this).css('background-color'));
+
+                    }
+                });
+                /*** **********************************
+                 ***
+                 *** ********************************** ***/
+                jQuery('.slideshow div').hide(); // hide all slides
+                jQuery('.slideshow div:first-child').show(); // show first slide
+                var img;
+                var data_src;
+                //console.log("----------setInterval-----------------Before interval ---------------------------");
+
+                setInterval(function() {
+                    console.log("-------------------------------------load now id------------------????????--------inside interval -----------id:" + $('.slideshow div:first-child').next('div').attr('id'));
+
+                    for (var i = 0; i < deleteArray.length; i = i + 1) {
+                        // console.log("output array:  " + deleteArray[ i ]);
+                        if (deleteArray[ i ] == '#div3' || deleteArray[ i ] == '#div4' || deleteArray[ i ] == '#div5'
+                                || deleteArray[ i ] == '#yellowdiv1' || deleteArray[ i ] == '#yellowdiv2' || deleteArray[ i ] == '#yellowdiv3'
+                                || deleteArray[ i ] == '#redtextdiv1'
+                                || deleteArray[ i ] == '#udivd' || deleteArray[ i ] == '#bluetextdiv1'
+                                || deleteArray[ i ] == '#white1textdiv'
+                                ) {
+                            //  console.log('>>>>>>>>>>remove>>>>>>>>>>>>>>-------------?????????????????????------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>Remove:'+deleteArray[ i ]);
+                            $(deleteArray[ i ]).remove();//.empty();//
+                        }
+                        else {
+                            // console.log('>>>>>>>>>>>remove>parent>>>>>>>>>>>>-------------?????????????????????------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>Remove:'+deleteArray[ i ]);
+                            $(deleteArray[ i ]).parent().remove();
+                        }
+                    }
+                    deleteArray = [];
+
+                    if (typeof $('.slideshow div:first-child').attr('data-src') != 'undefined')
+                        console.log("Remove image id:" + $('.slideshow div:first-child').attr('id') + "  data-src:" + $('.slideshow div:first-child').attr('data-src'));
+                    else
+                        console.log("Loaded active id:" + $('.slideshow div:first-child').attr('id') + " background:" + $('.slideshow div:first-child').css('backgroundColor'));
+
+                    $('.slideshow div:first-child').fadeOut(500).next('div').fadeIn(1000).end().appendTo('.slideshow');
+                    /*
+                     if (typeof $('.slideshow div:first-child').attr('data-src') != 'undefined')
+                     console.log("Loaded active id:" + $('.slideshow div:first-child').attr('id') + " data-src:" + $('.slideshow div:first-child').attr('data-src'));
+                     else
+                     console.log("Loaded active id:" + $('.slideshow div:first-child').attr('id') + " background:" + $('.slideshow div:first-child').css('backgroundColor'));
+                     */
+                    var id = $('.slideshow div:first-child').attr('id');
+                    //data_src = $('.slideshow div:first-child').attr('data-src');
+                    /***************  back-ground image *****************/
+                    /***************  Føtex white *****************/
+                    if (id == 'fotex1_white') {
+                        //alert('fotex1_white');
+                        loadWhite1Figur(id);
+                        loadWhite1Text1(id);
+                    }
+                    if (id == 'fotex_white') {
+                        loadWhiteText1(id);
+                        loadWhiteFigur(id);
+
+                    }
+
+                    //***************    End  white  *******************//
+                    //***************  Føtex yellow ***************//
+                    if (id.substr(id.indexOf("_") + 1, id.length) == 'yellow') {
+                        var yellowDivText = 'Føtex!';
+                        var yellowDivUnderText = 'www.føtex.dk';
+                        $("#" + id).prepend('<div id="yellowdiv1" style=" display:none" class="yellowdetail">' + yellowDivText + '</div>');
+                        $('#yellowdiv1').css({'background-color': 'yellow', 'left': '-100px', 'text-align': 'left', 'top': '0px', 'width': '500px', 'height': '250px', 'position': 'absolute', 'display': 'block', 'z-index': '3', 'color': 'blue'});//relative
+                        $("#yellowdiv1").animate({
+                            left: '0px',
+                            opacity: 0.8
+                        },
+                        {
+                            duration: 800,
+                            complete: function() {
+                                //console.log("finished  #yellowdiv1");
+                                deleteArray.push("#yellowdiv1");
+                                loadYellowText2(id);
+                            }
+                        });
+
+                    }
+                    //***************  Føtex red ***************//
+                    if (id.substr(id.indexOf("_") + 1, id.length) == 'red') {
+                        var redDivText = 'Byens bedste';
+                        var redDivUnderText = 'åbningstider...';
+                        $("#" + id).append('<p id="redtextdiv1" style=" display:none;" class="reddetail">' + redDivText + '<br> <span class="redname" >' + redDivUnderText + '</span> </p>');
+                        $('#redtextdiv1').css({'background-color': 'red', 'font-weight': 'bold', 'opacity': '0.85', 'left': '100px', 'text-align': 'center', 'top': '+100px', 'width': '1000px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'blue'});
+                        $("#redtextdiv1").animate({
+                            /*width: "800px", //"70%",*/
+                            /*opacity: 0.8,*/
+                            marginLeft: "0.6in",
+                            fontSize: "7em"
+                        },
+                        {
+                            duration: 1500,
+                            complete: function() {
+                                //console.log("finished  #redtextdiv1");
+                                deleteArray.push("#redtextdiv1");
+                            }
+                        });
+
+                    }
+                    //***************  Føtex blue ***************//
+                    if (id.substr(id.indexOf("_") + 1, id.length) == 'blue') {
+
+                        $("#" + id).append('<div        style="background-color:blue;                   font-size:152px;    font-weight: bold;"  id="bluetextdiv1"  class="bluedetail"  >Føtext</div>');
+                        $('#bluetextdiv1').append('<div style="background-color:red     height:140px;   font-size:52px;                                                 ">Mandag-Fredag kl. 8.00 - 21.00</div>');
+                        $('#bluetextdiv1').append('<div style="background-color:yellow  height:140;     font-size:152px;    font-weight: bold;                          ">Centret</div>');
+                        $('#bluetextdiv1').append('<div style="background-color:red     height:40px;    font-size:52px;                                                 ">Mandag-Torsdag kl. 9.30 - 18.00</div>');
+                        $('#bluetextdiv1').append('<div style="background-color:red     height:40px;    font-size:52px;                                                 ">Fredag kl. 9.30 - 19.00</div>');
+                        $('#bluetextdiv1').append('<div style="background-color:red     height:40px;    font-size:52px;                                                 ">Søndag kl. 9.30 - 16.00</div>');
+                        $('#bluetextdiv1').after('</div>');
+                        $('#bluetextdiv1').hide();
+//$('#bluetextdiv1').css({  'left': '100px', 'text-align': 'center', 'top': '100p'});
+                        var textleft = $(window).width() / 2 - 300;     //left
+                        var textheight = $(window).height() / 2 - 250;  //top
+
+                        $('#bluetextdiv1').css({"position": "absolute",
+                            "left": '20%', //textleft
+                            "text-align": "center",
+                            "top": '15%'
+                            });//textheight
+                        $('#bluetextdiv1').show("explode", {pieces: 56}, 1500, callback);
+                    }
+                    function callback() {
+                        deleteArray.push("#bluetextdiv1");
+                        // console.log('Callback -- Callback -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ');
+                    }
+                    ;
+
+                    //***************    End    *******************//
+                    if (id == "bla") {
+                        $("#" + id).append('<div><img id="book1"  src="images/tst/girl_1.jpg" alt=""  style="display: none;  position: relative; left: 550px;"></div>');
+                        $("div #book1").css({'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '2', width: '100', height: '223'}).animate({
+                            opacity: 1, //0.25,
+                            left: "+=350",
+                            height: "toggle"
+                        }, 5000, function() {
+                            // console.log('Before Animation complete. remove:' + $(this).attr('id'));
+                            deleteArray.push("#book1");
+
+                        });
+                        //console.log('Animation complete. remove>>>>>>>>>>>>>>>:');
+                    }
+                    // console.log('<<<<<<<<<<<<<window.height<<<<<<<<<<<<<<<<<<'+ $( window ).height());
+                },
+                        6000); //6000 slide duration
+            });
+        </script>
+    </head>
+    <body>
+        <div class="slideshow">
+            <div id="slide1"  data-src="images/Gcenter1.jpg"></div>
+            <!--div id="slide2"  data-src="images/menu-back.jpg"></div>
+            <div id="slide3"  data-src="images/menu-front.jpg"></div-->
+            <div id="fotex_blue" ></div>
+            <div id="fotex1_white" ></div> 
+            <div id="fotex_red" ></div>
+            <div id="fotex_white" ></div> 
+            <div id="fotex_yellow" ></div>
+
+        </div>
+    </body>
+</html>
+
+
+
+
+

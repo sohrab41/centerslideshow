@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
+        <script type='text/javascript' src='js/libs/jquery-1.11.0.min.js'></script>
+        <script type='text/javascript' src='js/libs/jquery.easing.1.3.js'></script> 
+        <meta charset=utf-8 />
+        <title>JS Bin</title>
+        <!-- ----------------- style --------------------------- -->
+        <style>
+            #colorPage1Class{
+                background-color:'#ff0000';
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+
+                /* Preserve aspet ratio */
+                min-width: 100%;
+                min-height: 100%;
+            }         
+            .fullpagebackground{
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                border: 0px solid;
+                /* Preserve aspet ratio */
+                min-width: 100%;
+                min-height: 100%;
+
+            }           
+            /* .rcolumn{*/
+            /*background-image:url("images/tst/red.png");*/
+            /*
+            background:transparent url(images/green.png) repeat ;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            */
+            /* Preserve aspet ratio */
+            /*min-width: 100%;
+            min-height: 100%;*/
+            /*
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;*/
+
+            /*background-color:#ff0000;
+            margin: 0px 0px 0px 0px;
+            padding: 0px;
+            position: relative;
+            width:100%;
+            height:100%;*/
+            /*border-color: #316897;
+            border-radius: 4px 4px 4px 4px;
+            border-style: solid;
+            border-width: 1px 1px 1px 1px;
+            position:relative;
+            float:left;
+            text-align: right;*/
+
+            /* }*/
+            /*
+           .maintitle1 {
+               background: center top #2C6987 repeat-x ;
+               border-color: #316897;
+               border-radius: 4px 4px 4px 4px;
+               border-style: solid;
+               border-width: 1px 1px 1px 1px;
+               box-shadow: 0 1px 0 #528CBC inset;
+               color: #FFFFFF;
+               font-size: 16px;
+               font-weight: 300;
+               padding: 6px 10px 6px 10px;
+               padding-left: 10px;
+           
+           }*/
+
+
+
+            .slideshow{ position: relative; }
+            #slide1, #slide2, #slide3{ position: absolute; }
+            #photoShow div.previous {
+                z-index: 1;
+            }
+            #photoShow div.current {
+                z-index: 2;
+            }
+
+
+
+
+
+        </style>
+        <!-- ----------------- script --------------------------- -->
+        <script>//  jQuery(document).ready(function($) {
+            jQuery(function() {
+
+                var loadCanvas = function(src, imgWidth, imgHeight) {
+                    var canvas = document.createElement("canvas");
+                    var context = canvas.getContext("2d");
+                    var img = new Image();
+                    img.src = src;
+                    img.id = "someid";
+
+
+                    $(img).load(function() {
+                        canvas.width = imgWidth;
+                        canvas.height = imgHeight
+                        context.drawImage(this, 0, 0);
+                    });
+
+                    return $(canvas);
+                };
+                console.log("---------------------------jQuery ---------------------------");
+                /*** **********************************
+                 ***
+                 *** ********************************** ***/
+
+                $('.slideshow > div').each(function() {
+                    if (typeof $(this).attr('data-src') != 'undefined') {
+                        var id = $(this).attr('id');
+                        var data_src = $(this).attr('data-src');
+                        var img = $(' <img src="' + data_src + '" class="fullpagebackground"  >'); //Equivalent: $(document.createElement('img'))
+                        img.appendTo("#" + id).children("img").remove();
+                        $("#" + id).css({'z-index': '1'});
+                        console.log("  src: " + $(this).attr('data-src') + 'added to id: ' + $(this).attr('id'));
+                    }
+                    else {
+                        var id = $(this).attr('id');
+                        console.log("this is :1111: " + $(this).attr('id') + '  index:  ' + id.indexOf("backcolor"));
+                        if (id.indexOf("backcolor") >= 0) {
+                            console.log("this is :1111: " + $(this).attr('id'));
+                            $(this).css('background', 'yellow');//'#EE178C'
+                            console.log("this is :      background: " + $(this).css('backgroundColor'));
+                            $("#" + id).css({'min-width': '100%'});// Preserve aspet ratio 
+                            $("#" + id).css({'min-height': '100%'});// Preserve aspet ratio 
+                            $("#" + id).css({'position': 'fixed'});
+                            $("#" + id).css({'top': '0'});
+                            $("#" + id).css({'left': '0'});
+                        }
+                        // $(this).css('background-color','#EE178C');
+
+                        //console.log("this is "+$('.slideshow  div div').attr('id')+ "     Undefind");
+                        //var imageUrl = 'url(images/red.png) repeat';
+                        //$("#" + id).css({'background-image': imageUrl} );
+                        //$("#" + id).css("background-color", "red");
+                        // $('.slideshow div#colorPage1').css('background-color', '#FFFF99');
+                        console.log("this is :background-color: " + $(this).css('background-color'));
+
+                    }
+                });
+                /*** **********************************
+                 ***
+                 *** ********************************** ***/
+                /*OK
+                 $('.slideshow > div').each(function() {
+                 if (typeof $(this).attr('data-src') != 'undefined') {
+                 var id = $(this).attr('id');
+                 var data_src = $(this).attr('data-src');
+                 console.log("  src: " + $(this).attr('data-src') + 'added to id: ' + $(this).attr('id'))
+                 }
+                 else {//$( ".slideshow > div" ).find( "div" )
+                 console.log("this is bla" + $(this).attr('id'));*/
+                //console.log("this is "+$( ".slideshow  div" ).find( "div" ).attr('id')+ "     Undefind");
+                //var imageUrl = 'url(images/green.png) repeat';
+                //$('#'+$(this).attr('id')).css('background', + imageUrl );
+                /*
+                 var minCanvas =   loadCanvas("images/tst/i06.jpg",100,100);
+                 minCanvas.appendTo("#" +  $(this).attr('id'));
+                 alert('Canvace:'+$("#someid").attr('width'));
+                 $("#someid").css({'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '3', 'color': 'white'})
+                 .animate({left:400, opacity:"show"}, 3500).delay(1000).animate({top:-200, opacity:"show"},3500);
+                 */
+
+                /*OK      var jQueryObject = $('<div id="tstid" width="100" height="123" style="display:block;  position: relative; top: 100px; left: 100px;"></div>').html("dette er text string <br> test2" );
+                 jQueryObject.appendTo("#" +  $(this).attr('id'));
+                 $("#tstid").css("fontSize", "30px");
+                 $("#tstid").css("font-weight", "bold");
+                 $("#tstid").css("text-align", "center");
+                 $("#tstid").css({'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '3', 'color': 'white'})
+                 .animate({left:400, opacity:"show"}, 3500).delay(1000).animate({top:-200, opacity:"show"},3500);
+                 
+                 
+                 
+                 
+                 
+                 }
+                 });*/
+                /*** **********************************
+                 ***
+                 *** ********************************** ***/
+                console.log('jQuery(function()');
+                jQuery('.slideshow div').hide(); // hide all slides
+                //var id = $('.slideshow div:first-child').attr('id');
+                //var data_src = $('.slideshow div:first-child').attr('data-src');
+                // $("#" + id).append(' <img src="' + data_src + '" class="fullpagebackground"  >');
+                // $("#" + id).css({'z-index': '1'});
+                // $("#" + id).addClass( "fullpagebackground"); 
+                jQuery('.slideshow div:first-child').show(); // show first slide
+                var img;
+                var data_src;
+                //var counter=0;
+                console.log("---------------------------Before interval ---------------------------");
+                var deleteArray = [];
+                setInterval(function() {
+                    console.log("--------------inside interval -----------id:" + $('.slideshow div:first-child').next('div').attr('id'));
+                    for ( var i = 0; i < deleteArray.length; i = i + 1 ) {
+                            console.log("output array:  " + deleteArray[ i ] );
+                              //$(deleteArray[ i ]).remove();
+                              if(deleteArray[ i ]=='#tstid'  || deleteArray[ i ]=='#tstid1' || deleteArray[ i ]=='#div3' )
+                                  $(deleteArray[ i ]).remove();
+                              else
+                                  $(deleteArray[ i ]).parent().remove();
+                    }
+                   deleteArray = [];
+                    //alert('bal:'+ $('.slideshow').children('div[data-src]').size());
+                    //var counOfSubDiv= $('.slideshow').children().size();
+                    /*
+                     if($('.slideshow div:first-child').attr('id').indexOf("tstid")>=0  || $('.slideshow div:first-child').next('div').attr('id').indexOf("tstid")>=0){
+                     $('.slideshow div:first-child').next('div');
+                     $('.slideshow div:first-child').next('div');
+                     return;
+                     } */
+                    var item1 = $("div.book")[ 0 ];
+                    console.log($(".slideshow").find(item1).attr('id'));
+                    //var div = $(".slideshow div > div > div:eq(1)")
+                    //console.log('inner div:    '+div.attr('id'));
+                    /*if($('#book').attr('id')!='undefined' ){
+                     console.log('Animation complete. remove:' + $(this).attr('id'));
+                     $('#book').remove();
+                     
+                     }*/
+
+                    if (typeof $('.slideshow div:first-child').attr('data-src') != 'undefined')
+                        console.log("Remove image id:" + $('.slideshow div:first-child').attr('id') + "  data-src:" + $('.slideshow div:first-child').attr('data-src'));
+                    else
+                        console.log("Loaded active id:" + $('.slideshow div:first-child').attr('id') + " background:" + $('.slideshow div:first-child').css('backgroundColor'));
+
+                    $('.slideshow div:first-child').fadeOut(500).next('div').fadeIn(1000).end().appendTo('.slideshow');
+                    if (typeof $('.slideshow div:first-child').attr('data-src') != 'undefined')
+                        console.log("Loaded active id:" + $('.slideshow div:first-child').attr('id') + " data-src:" + $('.slideshow div:first-child').attr('data-src'));
+                    else
+                        console.log("Loaded active id:" + $('.slideshow div:first-child').attr('id') + " background:" + $('.slideshow div:first-child').css('backgroundColor'));
+                    var id = $('.slideshow div:first-child').attr('id');
+                    //data_src = $('.slideshow div:first-child').attr('data-src');
+                    /***************  back-ground image *****************/
+                    /*Øcounter++;
+                     if(counter<counOfSubDiv){
+                     img = $(' <img src="' + data_src + '" class="fullpagebackground"  >'); //Equivalent: $(document.createElement('img'))
+                     img.appendTo("#" + id).children("img").remove();
+                     $("#" + id).css({'z-index': '1'});
+                     }*/
+
+                    /***************  Text1 *****************/
+                    /*
+                     var jQueryObject = $('<div id="tstid" width="100" height="123" style="display: none;  position: relative; top: 100px; left: 100px;"></div>').html("dette er text string <br> test2" );
+                     jQueryObject.appendTo("#" + id);
+                     //$("#tstid").css("fontSize", "30px");
+                     //$("#tstid").css("font-weight", "bold");
+                     //$("#tstid").css("text-align", "center");
+                     $("#tstid").css({'fontSize': '30px','font-weight':'bold','text-align': 'center', 'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '3', 'color': 'white'})
+                     .animate({
+                     left:400, 
+                     opacity:"show"}, 3500, function() {
+                     console.log('Before Animation complete. remove:' + $(this).attr('id'));
+                     $(this).parent().remove();
+                     });*/
+                    //.animate({left:400, opacity:"show"}, 3500).delay(1000).animate({top:-200, opacity:"show"},3500);
+
+
+
+                    /*
+                     var jQueryObject = $('<div id="tstid" width="100" height="123" style="display: none;  position: relative; top: 100px; left: 100px;"></div>').html("dette er text string <br> test2" );
+                     jQueryObject.appendTo("#" + id);
+                     $("#tstid").css("fontSize", "30px");
+                     $("#tstid").css("font-weight", "bold");
+                     $("#tstid").css("text-align", "center");
+                     $("#tstid").css({'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '3', 'color': 'white'})
+                     .animate({left:400, opacity:"show"}, 3500).delay(1000).animate({top:-200, opacity:"show"},3500);
+                     */
+                    /*
+                     $('#target').hover(function() {
+                     $(this).animate({height: '300px'});
+                     }, function() {
+                     $(this).delay(1000).animate({height: '100px'});
+                     });*/
+
+                    /*
+                     .animate(
+                     {left: 300}, {
+                     duration: 'slow',
+                     easing: 'easeOutBounce'
+                     }).delay(1000)
+                     .animate(
+                     {top: -800}, {
+                     duration: 'slow',
+                     easing: 'easeOutBounce'
+                     });*/
+                    /*
+                     $("#" + id).append('<div id="tstid" width="100" height="123" style="display:none; width:300; position: relative; top: 100px; left: 200px; background-color: white; opacity: 0.85; ">dette er text string <br> test2</div>');
+                     $("#tstid").css({'fontSize': '30px','font-weight':'bold','text-align': 'center', 'top': '100px',  'width':'100px', 'height':'123px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'blue'}).animate({
+                     left:"+=600", 
+                     opacity:"show"}, 5500, function() {
+                     console.log('?????????????????? Before Animation complete. remove:' + $(this).attr('id'));
+                     $(this).remove();
+                     });*/
+  /*      
+                    $("#" + id).append('<div id="tstid" width="100" height="123" style="display:none; width:300; position: relative; top: 100px; left: 200px; background-color: white; opacity: 0.85; ">dette er text string <br> test2</div>');
+                    $("#tstid").css({'fontSize': '30px', 'font-weight': 'bold', 'text-align': 'center', 'top': '100px', 'width': '100px', 'height': '123px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'blue'})
+                            .animate({left: "+=600", opacity: "show"}, 3500).delay(1000)
+                            .animate({top: "-=200", opacity: "show"}, 700, function() {
+                        console.log('?????????????????? Before Animation complete. remove:' + $(this).attr('id'));
+                        $(this).remove();
+                    });
+*/
+
+                    $("#" + id).append('<div id="tstid" width="100" height="123" style="display:none; width:300; position: relative; top: 100px; left: 200px; background-color: white; opacity: 0.9; ">dette er text string <br> test2</div>');
+                    $('#tstid').css({'fontSize': '30px', 'font-weight': 'bold', 'text-align': 'center', 'top': '100px', 'width': '100px', 'height': '123px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'blue'});
+                    $('#tstid').fadeIn({queue: false, duration: 'slow'});
+                    $('#tstid').animate({ top: "100px" }, 'slow', function() {
+                        console.log('BLA---BLA---BLA---BLA---BLA--- remove:' + $(this).attr('id'));
+                       // $(this).remove();
+                        deleteArray.push( "#tstid" );
+                    });
+
+
+                    $("#" + id).append('<p id="tstid1">Lorem ipsum dolor sit amet, solet nostrud concludaturque no eam. Ne quod recteque pri. Porro nulla zril mei eu. Eu nibh rebum pri, eu est maiorum menandri, ridens tamquam abhorreant te eum. Ipsum definiebas ad mel.</p>');
+                    $('#tstid1').css({'fontSize': '30px', 'font-weight': 'bold','opacity': '0.85','background-color': 'white' ,'left': '200px','text-align': 'center', 'top': '100px','width': '400px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'red'});
+                    $('#tstid1').fadeIn({queue: false, duration: 'slow'});
+                    //$('#tstid1').fadeIn(3000); 
+                    $('#tstid1').animate({ top: "+=150px" }, 'slow', function() {
+                        console.log('BLA---BLA---BLA---BLA---BLA--- remove:' + $(this).attr('id'));
+                       // $(this).remove();
+                        deleteArray.push( "#tstid1" );
+                    });
+                    /*
+                    $("#" + id).append('<div id="div3" style="width:180px;height:380px;display:none;background-color:blue;">dette er lang text for u</div>');
+                    $("#div3").fadeIn(3000, function() {
+                        console.log('BLA---BLA---BLA---BLA---BLA--- remove:' + $(this).attr('id'));
+                       // $(this).remove();
+                        deleteArray.push( "#div3" );
+                    });*/
+                    $("#" + id).append('<p id="div3" style=" display:none;">dette er lang text for u  <br>dette er  text 2 for u1</p>');
+                    $('#div3').css({'fontSize': '20px', 'font-weight': 'bold','opacity': '0.85','background-color': 'white' ,'left': '399px','text-align': 'center', 'top': '-400px','width': '500px', 'position': 'relative', 'display': 'block', 'z-index': '3', 'color': 'red'});
+                    //$("#div3").fadeIn('1000');
+                    $("#div3").animate({
+    width: "500px",//"70%",
+    opacity: 0.8,
+    marginLeft: "0.6in",
+    fontSize: "3em",
+    borderWidth: "10px"
+  }, 1500);
+                    //$('#div3').animate({ opacity: .8, top: "-10px" }, 'slow');
+                    deleteArray.push( "#div3" );
+
+
+
+                    /***************  anim. image *****************/
+                    /* $("#" + id).append('<div><img id="book"  src="images/tst/i06.jpg" alt="" width="100" height="123" style="display: none;  position: relative; left: 10px;"></div>');
+                     $("div #book").css({'top': '10px', 'position': 'absolute', 'display': 'block', 'z-index': '2'}).animate({
+                     opacity: 1, //0.25,
+                     left: "+=150"//,
+                     //height: "toggle"
+                     }, 5000, function() {
+                     console.log('Before Animation complete. remove:' + $(this).attr('id'));
+                     //$(this).remove();
+                     $(this).parent().remove();
+                     //$("div #book").remove();
+                     //console.log('Efter Animation complete. remove:' + $(this).attr('id'));
+                     });*/
+                    $("#" + id).append('<div><img id="book"  src="images/tst/hot_model_girl.png" alt="" width="200" height="323" style="display: none;  position: relative; left: -90px;"></div>');
+                    $("div #book").css({'top': '200px', 'position': 'absolute', 'display': 'block', 'z-index': '2'});
+
+                    $("div #book").animate({
+                        opacity: 1, //0.25,
+                        left: "+=90"//,
+
+                    },
+                    {
+                        duration: 5000,
+                        complete: function() {
+                            console.log("finished");
+                             deleteArray.push( "#book" );
+                            //$(this).parent().remove();
+                        }
+                    });
+
+
+
+
+
+                    $("#" + id).append('<div><img id="book1"  src="images/tst/girl_1.jpg" alt=""  style="display: none;  position: relative; left: 550px;"></div>');
+                    $("div #book1").css({'top': '100px', 'position': 'absolute', 'display': 'block', 'z-index': '2',width:'100', height:'223'}).animate({
+                        opacity: 1, //0.25,
+                        left: "+=350",
+                        height: "toggle"
+                    }, 5000, function() {
+                        console.log('Before Animation complete. remove:' + $(this).attr('id'));
+                        //$(this).remove();
+                        //$(this).parent().remove();
+                        //$("div #book").remove();
+                        //console.log('Efter Animation complete. remove:' + $(this).attr('id'));
+                        deleteArray.push( "#book1" );
+                           
+                    });
+
+                    console.log('Animation complete. remove>>>>>>>>>>>>>>>:');
+
+                },
+                        6000)
+                        ; // slide duration
+            });
+        </script>
+    </head>
+    <body>
+        <div class="slideshow">
+            <div id="slide1"  data-src="images/tst/i01.jpg">
+                <!--p class="quote">Quote One</p>
+                <p class="credit">Person One</p-->
+                <!--img src="images/tst/i01.jpg"-->
+            </div>
+            <!--div id="slide2" data-src="images/tst/i02.jpg">
+            </div-->
+            <!--div id="slide3"  data-src="images/tst/i03.jpg">
+            <!--/div-->
+            <!--div id="colorPage1" class='colorPage1Class'  style="background-color:blueviolet; background:blue; width:100%; height:100%;"></div-->
+
+            <!--div id="rightcolumn" class="rcolumn"><div class="floatRight"><H3 class="maintitle1">articals </H3></div></div--> 
+            <!--div id="rightcolumn" class="rcolumn"></div-->
+            <div id="backcolor1"></div>
+            <!--div class="floatRight"><H3 class="maintitle1">articals </H3></div--> 
+        </div>
+    </body>
+</html>
+
+
+
+
+

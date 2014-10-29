@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <!-- http://stackoverflow.com/questions/14191632/jquery-animation-fade-in-fade-out  -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Susanne gallery</title>
+        <!--link rel="stylesheet" type="text/css" href="css/fadeSlideShow.css" /-->
+        <script type="text/javascript" src="js/libs/jquery-1.11.0.min.js"></script>
+        <style>
+            #galleryContainer {
+                width:1200px;
+                height:800px;
+                margin:0 auto;
+                position:relative;
+                padding-bottom:0px;
+
+            }
+            #photoShow {
+                position:relative;
+                width:1200px;
+                height:800px;
+                margin:0 auto;
+
+            }
+            #photoShow div {
+                position:absolute;
+                z-index: 0;
+                margin-top:0px;
+            }
+            #photoShow div.previous {
+                z-index: 1;
+            }
+            #photoShow div.current {
+                z-index: 2;
+            }
+        </style>
+        <script>
+            $(function() {
+            setInterval("rotateImages()", 5000);
+            });
+                    function rotateImages() {
+                    var curPhoto = $('#photoShow div.current');
+                            var nxtPhoto = curPhoto.next();
+                            if (nxtPhoto.length == 0)
+                            nxtPhoto = $('#photoShow div:first');
+                            curPhoto.removeClass('current').addClass('previous');
+                            nxtPhoto.css({ opacity: 0.0 }).addClass('current').animate({ opacity: 1.0 }, 2000,
+                            function() {
+                            curPhoto.removeClass('previous');
+                            });
+                    }
+
+           
+        </script>
+    </head>    
+    <containt>
+
+        <thead></thead>
+        <tbody>   
+            <!--div class="img-grp-wrap">
+            <div id="leaf_id "class="myleafclass"  data-src="images/tst/i01.jpg"></div>
+             </div-->
+        <div id="galleryContainer">
+            <div id="photoShow">
+                <div class="current"><img src="images/tst/i01.jpg" width="1200" height="800" class="gallery" /></div>
+                <div><img src="images/tst/i02.jpg" width="1200" height="800" class="gallery" /></div>
+                <div><img src="images/tst/i03.jpg" width="1200" height="800" class="gallery" /></div>
+                <div><img src="images/tst/i04.jpg" width="1200" height="800" class="gallery" /></div>
+                <div><img src="images/tst/i05.jpg" width="1200" height="800" class="gallery" /></div>
+                <div><img src="images/tst/i06.jpg" width="1200" height="800" class="gallery" /></div>
+            </div>     
+        </div>
+
+
+    </tbody>
+</containt>
+
+</html>

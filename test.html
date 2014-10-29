@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>prepend demo</title>
+  <style>
+ body {
+    color: #000000;
+    background: url(http://www.alessandroboselli.it/foto/cosecosi/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bg.jpg', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bg.jpg', sizingMethod='scale')";
+    background-size: cover;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    color: #5d717e;
+    text-align: center
+}
+
+/* Homepage layout --- start */
+#wrapper {
+    text-align: left;
+    margin: 0px auto;
+    padding: 0px;
+    border:0;
+    width: 980px;
+    height: 300px;
+}
+
+#side-left {
+    float: left;
+    width: 300px;
+}
+
+#center { 
+    float: left;
+    width: 300px;
+}
+
+#side-right {
+    float: right;
+    width: 380px;
+}
+/* Homepage layout --- end */
+
+
+/* Homepage images --- start */
+.homepageimage {
+    position:relative;
+    float:left; /* optional */    
+    top:40px;
+    -moz-box-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#5f5f5f')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#5f5f5f');
+}
+
+.homepageimage a {
+    text-decoration: none;
+    float: left;
+}
+.homepageimage a .homepageimagetitle {
+    display: block;
+    font-family: 'Molengo', Arial, serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    text-shadow: none;
+    text-decoration: none;
+    letter-spacing: 0.050em;
+    word-spacing: 0em;
+    line-height: 1.2;
+    padding: 10px 0;
+    background: #111;
+    filter:alpha(opacity=75);
+    opacity:.75;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 5px;
+    margin: 0;
+    width: 190px;
+    /*position: absolute;
+    right: 20px;
+    bottom: 20px;
+    filter:alpha(opacity=65);
+    opacity:.65;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)"; /*--IE 8 Transparency--*/
+}
+
+.homepageimage a .homepageimagesub {
+      display: block;
+     font-family: 'Buda', arial, serif;
+     font-size: 18px;
+     font-style: normal;
+     font-weight: 400;
+     text-shadow: none;
+     text-decoration: underline;
+     text-transform: none;
+     letter-spacing: 0.007em;
+     word-spacing: 0em;
+     line-height: 1.15;
+    padding: 10px 0;
+    background: #111;
+    filter:alpha(opacity=75);
+    opacity:.75;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    color: #fff;
+    position: absolute;
+    top: 215px;
+    left: 0px;
+    padding: 5px;
+    margin: 0;
+}
+
+  </style>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+     <script>
+         jQuery(document).ready(function($) {
+       $("#fotex_yellow").css({'min-width': '100%'});// Preserve aspet ratio 
+       $("#fotex_yellow").css({'min-height': '100%'});// Preserve aspet ratio 
+       $("#fotex_yellow").css({'position': 'fixed'});
+       $("#fotex_yellow").css({'top': '0px'});
+       $("#fotex_yellow").css({'left': '0px'});
+       $("#fotex_yellow").css({'background-color': 'yellow'});
+       $("#fotex_yellow").prepend( "<div  style='background-color:blueviolet;' >there, friend!</div>" );            
+    });  
+    </script>
+</head>
+<body>
+<div id="wrapper">
+<div id="container">
+<div id="side-left">
+<div class="homepageimage"><a href="#"> <img src="http://www.alessandroboselli.it/foto/cosecosi/gioielli-jewels.jpg" alt="Gioielli" /> <span class="homepageimagetitle">GIOIELLI</span><span class="homepageimagesub" style="width: 500px;">entra nel nostro shop e scopri<br />la nostra selezione unica di gioielli storici</span> </a></div>
+</div>
+<div id="center">
+<div class="homepageimage"><a href="#"> <img src="http://www.alessandroboselli.it/foto/cosecosi/luoghi-places.jpg" alt="Luoghi" /> <span class="homepageimagetitle">LUOGHI</span><span class="homepageimagesub" style="width: 1400px;">scopri i meravigliosi luoghi dove<br />i gioielli della storia sono stati creati</span> </a></div>
+</div>
+<div id="side-right">
+<div class="homepageimage"><a href="#"> <img src="http://www.alessandroboselli.it/foto/cosecosi/persone-people.jpg" alt="Persone" /> <span class="homepageimagetitle">PERSONE</span><span class="homepageimagesub" style="width: 300px;">scopri i meravigliosi luoghi dove<br />i gioielli della storia sono stati creati</span> </a></div>
+</div>
+</div>
+</div>
+<div id="wrapper">
+<div id="container">
+<div id="side-right">
+<div class="homepageimage"><a href="#"> <img src="http://www.alessandroboselli.it/foto/cosecosi/storie-stories.jpg" alt="Storie" /> <span class="homepageimagetitle">STORIE</span><span class="homepageimagesub"  style="width: 600px;">scopri i meravigliosi luoghi dove<br />i gioielli della storia sono stati creati</span> </a></div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <!-- http://jsfiddle.net/rCd26/2/ or http://stackoverflow.com/questions/17786805/how-to-add-prev-and-next-button-in-a-simple-jquery-slideshow-code  -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Susanne gallery</title>
+        <!--link rel="stylesheet" type="text/css" href="css/fadeSlideShow.css" /-->
+        <script type="text/javascript" src="js/libs/jquery-1.11.0.min.js"></script>
+        <style>
+            .img-grp-wrap {
+                position: relative;
+                /*width: 1260px;/*820px;*/
+                /*height: 800px;/*520px;*/
+                margin: 0px 0px 0px 0px ; /*0px auto 50px auto;*/
+               
+            }
+            .slideshow {
+                position: relative;
+                /* necessary to absolutely position the images inside */
+                /*width: 1260px;/*820px;*/
+                /* same as the images inside */
+                /*height: 800px;/*520px;*/
+                border: 0px solid #CCC;
+                background-color: white;
+               
+            }
+              
+            .slideshow img {
+                position: absolute;
+                display: none;
+               /* top:auto;
+                left:auto;
+                -moz-box-shadow: 0px 0px 0px #CCC;
+                padding: 0px; 
+      /*          top: 50%;
+    left: 50%;
+    margin-left: -320px;
+    margin-top: -240px;         http://stackoverflow.com/questions/11206109/how-to-put-image-in-center-of-html-page*/
+            }
+            .slideshow img:first-child {
+                display: block;
+                /* overrides the previous style */
+            }
+            .next, .prev {
+    position: absolute;
+    cursor: pointer;
+    top: 70px;
+}
+
+.next {
+    top :250px;
+    right: -40px;
+}
+
+.prev {
+    top :250px;
+    left: -40px;
+}
+body{
+  background-size: cover;
+}        </style>
+        <script>
+            var interval = undefined;
+            $(document).ready(function() {
+                interval = setInterval(getNext,2000); // milliseconds
+                $('.next').on('click', getNext);
+                $('.prev').on('click', getPrev);
+                $('.play').on('click', startTimer);
+                $('.pause').on('click', stopTimer);
+            });
+
+            function startTimer() {
+                clearInterval(interval);
+                interval = setInterval(getNext, 2000); // milliseconds
+                 console.log('startTimer interval: '+interval)
+            }
+
+            function stopTimer() {
+                console.log('B stopTimer interval: '+interval)
+                clearInterval(interval);
+                interval=false;
+                console.log('E stopTimer interval: '+interval)
+                
+            }
+            function getNext() {
+               console.log($(window).width());
+               console.log($(window).height());
+               console.log('getNext interval: '+interval)
+                var $curr = $('.slideshow img:visible'),
+                        $next = ($curr.next().length) ? $curr.next() : $('.slideshow img').first();
+                        console.log('next:'+$next);              
+                //  alert($(this).data($next));
+                console.log($next.get(0));
+                transition($curr, $next);
+            }
+
+            function getPrev() {
+                $("img").attr("margin-left","auto"); 
+                $("img").attr("margin-right","auto"); 
+                console.log('getPrev interval: '+interval)
+                var $curr = $('.slideshow img:visible'),
+                        $next = ($curr.prev().length) ? $curr.prev() : $('.slideshow img').last();
+                transition($curr, $next);
+            }
+
+            function transition($curr, $next) {
+                $next.css('z-index', 2).fadeIn('slow', function() {
+                    $curr.hide().css('z-index', 0);
+                    $next.css('z-index', 1);
+                });
+
+            }
+        </script>
+    </head>    
+    <containt>
+        
+    <thead></thead>
+    <tbody>   
+        <!--div class="img-grp-wrap">
+        <div id="leaf_id "class="myleafclass"  data-src="images/tst/i01.jpg"></div>
+         </div-->
+        
+        
+        
+        
+        <div class="img-grp-wrap">
+            <div class="slideshow">
+                <!--img src="images/1.jpg" width="500" height="500" alt="first image"-->
+                <img src="images/tst/i01.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i02.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i03.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i04.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i05.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i06.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i07.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i08.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i09.jpg" width="1265" height="800" alt="first image">
+                <img src="images/tst/i10.jpg" width="1265" height="800" alt="first image">
+            </div>
+             <!--button class="prev">Prev</button>
+        <button class="next">Next</button>
+        <button class="play">play</button>
+        <button class="pause">pause</button-->
+        </div>
+        
+       
+    </tbody>
+    </containt>
+    
+</html>
